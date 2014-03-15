@@ -37,7 +37,17 @@ namespace GildedRose.Tests
 
             program.UpdateQuality(new List<Item> { item });
 
-            item.Quality.Should().Be(18);
+            item.Quality.Should().Be(18);        
+        }
+
+        [Test]
+        public void TheQualityOfAnItemIsNeverNegative()
+        {
+            var item = CreateItem(quality: 0);
+
+            program.UpdateQuality(new List<Item> { item });
+
+            item.Quality.Should().Be(0);
         }
 
         private Item CreateItem(string name = "Regular item", int quality = 20, int sellIn = 30)
