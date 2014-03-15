@@ -18,5 +18,16 @@ namespace GildedRose.Tests
 
             item.SellIn.Should().Be(19);            
         }
+
+        [Test]
+        public void AtTheEndOfEachDayTheSystemLowersQualityInByOne()
+        {
+            var item = new Item { Name = "Regular item", Quality = 20, SellIn = 20 };
+            var program = new Program();
+
+            program.UpdateQuality(new List<Item> { item });
+
+            item.Quality.Should().Be(19);
+        }
     }
 }
