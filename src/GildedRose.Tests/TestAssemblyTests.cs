@@ -90,6 +90,16 @@ namespace GildedRose.Tests
             item.Quality.Should().Be(50);
         }
 
+        [Test]
+        public void BackstagePassesDecreaesQualityByOneIfSellInIsGreaterThan10()
+        {
+            var item = CreateItem(name: "Backstage Passes", quality: 50, sellIn:11);
+
+            program.UpdateQuality(new List<Item> { item });
+
+            item.Quality.Should().Be(49);
+        }
+
         private Item CreateItem(string name = "Regular item", int quality = 20, int sellIn = 30)
         {
             return new Item { Name = name, Quality = quality, SellIn = sellIn };
