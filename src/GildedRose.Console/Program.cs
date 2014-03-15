@@ -62,7 +62,7 @@ namespace GildedRose.Console
             {
                 Item item = Items[i];
 
-                if ( IsLegendaryItem(item))
+                if (IsLegendaryItem(item))
                 {
 
                 }
@@ -70,10 +70,7 @@ namespace GildedRose.Console
                 {
                     if (HasQuality(item))
                     {
-                        if (item.Name != "Sulfuras, Hand of Ragnaros")
-                        {
-                            item.Quality = item.Quality - 1;
-                        }
+                        item.Quality = item.Quality - 1;
                     }
                 }
                 else
