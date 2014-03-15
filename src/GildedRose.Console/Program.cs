@@ -56,6 +56,11 @@ namespace GildedRose.Console
             return item.Name == "Sulfuras, Hand of Ragnaros";
         }
 
+        private bool IsBackStagePassItem(Item item)
+        {
+            return item.Name == "Backstage passes to a TAFKAL80ETC concert";
+        }
+
         public void UpdateQuality()
         {
             for (var i = 0; i < Items.Count; i++)
@@ -73,7 +78,7 @@ namespace GildedRose.Console
                         item.Quality = item.Quality - 1;
                     }
                 }
-                else if (item.Name == "Backstage passes to a TAFKAL80ETC concert")
+                else if (IsBackStagePassItem(item))
                 {
                     if (item.Quality < 50)
                     {
