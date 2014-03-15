@@ -80,6 +80,16 @@ namespace GildedRose.Tests
             item.SellIn.Should().Be(50);
         }
 
+        [Test]
+        public void LegendaryItemsNeverDecreasesQuality()
+        {
+            var item = CreateItem(name: "Sulfuras, Hand of Ragnaros", quality: 50);
+
+            program.UpdateQuality(new List<Item> { item });
+
+            item.Quality.Should().Be(50);
+        }
+
         private Item CreateItem(string name = "Regular item", int quality = 20, int sellIn = 30)
         {
             return new Item { Name = name, Quality = quality, SellIn = sellIn };
