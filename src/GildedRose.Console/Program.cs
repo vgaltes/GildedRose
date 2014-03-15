@@ -117,6 +117,14 @@ namespace GildedRose.Console
                     }
 
                     item.SellIn = item.SellIn - 1;
+
+                    if (item.SellIn < 0)
+                    {
+                        if (item.Quality < 50)
+                        {
+                            item.Quality = item.Quality + 1;
+                        }
+                    }
                 }
 
                 if (item.SellIn < 0)
@@ -138,13 +146,13 @@ namespace GildedRose.Console
                             item.Quality = item.Quality - item.Quality;
                         }
                     }
-                    else
-                    {
-                        if (item.Quality < 50)
-                        {
-                            item.Quality = item.Quality + 1;
-                        }
-                    }
+                    //else
+                    //{
+                    //    if (item.Quality < 50)
+                    //    {
+                    //        item.Quality = item.Quality + 1;
+                    //    }
+                    //}
                 }
             }
         }
