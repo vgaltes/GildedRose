@@ -66,6 +66,11 @@ namespace GildedRose.Console
             return item.Name == "Aged Brie";
         }
 
+        private bool SellByDatePassed(Item item)
+        {
+            return item.SellIn < 0;
+        }
+
         public void UpdateQuality()
         {
             for (var i = 0; i < Items.Count; i++)
@@ -85,7 +90,7 @@ namespace GildedRose.Console
 
                     item.SellIn = item.SellIn - 1;
 
-                    if (item.SellIn < 0)
+                    if (SellByDatePassed(item))
                     {
                         item.Quality = item.Quality - 1;
                     }
@@ -114,7 +119,7 @@ namespace GildedRose.Console
 
                     item.SellIn = item.SellIn - 1;
 
-                    if (item.SellIn < 0)
+                    if (SellByDatePassed(item))
                     {
                         item.Quality = item.Quality - item.Quality;
                     }
@@ -128,7 +133,7 @@ namespace GildedRose.Console
 
                     item.SellIn = item.SellIn - 1;
 
-                    if (item.SellIn < 0)
+                    if (SellByDatePassed(item))
                     {
                         if (item.Quality < 50)
                         {
