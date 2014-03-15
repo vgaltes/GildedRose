@@ -97,7 +97,7 @@ namespace GildedRose.Console
                 }
                 else if (IsBackStagePassItem(item))
                 {
-                    if (item.Quality < 50)
+                    if (IsQualityUnderTheLimit(item))
                     {
                         item.Quality = item.Quality + 1;
 
@@ -121,12 +121,12 @@ namespace GildedRose.Console
 
                     if (SellByDatePassed(item))
                     {
-                        item.Quality = item.Quality - item.Quality;
+                        item.Quality = 0;
                     }
                 }
                 else if ( IsAgedBrieItem(item))
                 {
-                    if (item.Quality < 50)
+                    if (IsQualityUnderTheLimit(item))
                     {
                         item.Quality = item.Quality + 1;
                     }
@@ -135,13 +135,18 @@ namespace GildedRose.Console
 
                     if (SellByDatePassed(item))
                     {
-                        if (item.Quality < 50)
+                        if (IsQualityUnderTheLimit(item))
                         {
                             item.Quality = item.Quality + 1;
                         }
                     }
                 }
             }
+        }
+
+        private bool IsQualityUnderTheLimit(Item item)
+        {
+            return item.Quality < 50;
         }
 
         private static void DecrementSellIn(Item item)
