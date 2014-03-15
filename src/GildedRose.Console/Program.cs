@@ -43,7 +43,8 @@ namespace GildedRose.Console
         private bool IsRegularItem(Item item)
         {
             return item.Name != "Aged Brie" &&
-                   item.Name != "Backstage passes to a TAFKAL80ETC concert";
+                   item.Name != "Backstage passes to a TAFKAL80ETC concert" &&
+                   item.Name != "Sulfuras, Hand of Ragnaros";
         }
 
         private bool HasQuality(Item item)
@@ -77,23 +78,24 @@ namespace GildedRose.Console
             {
                 Item item = Items[i];
 
-                if (IsLegendaryItem(item))
-                {
-
-                }
-                else if (IsRegularItem(item))
+                
+                if (IsRegularItem(item))
                 {
                     if (HasQuality(item))
                     {
-                        item.Quality = item.Quality - 1;
+                        DecrementQuality(item);
                     }
 
                     DecrementSellIn(item);
 
                     if (SellByDatePassed(item))
                     {
-                        item.Quality = item.Quality - 1;
+                        DecrementQuality(item);
                     }
+                }
+                else if (IsLegendaryItem(item))
+                {
+
                 }
                 else if (IsBackStagePassItem(item))
                 {
@@ -142,6 +144,11 @@ namespace GildedRose.Console
                     }
                 }
             }
+        }
+
+        private static void DecrementQuality(Item item)
+        {
+            item.Quality = item.Quality - 1;
         }
 
         private static void IncrementQuality(Item item)
