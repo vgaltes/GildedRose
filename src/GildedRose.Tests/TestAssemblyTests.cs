@@ -124,6 +124,16 @@ namespace GildedRose.Tests
             itemOneDayToSell.Quality.Should().Be(43);
         }
 
+        [Test]
+        public void BackstagePassesDropsQualityToZeroAfterTheConcert()
+        {
+            var item = CreateItem(name: "Backstage passes to a TAFKAL80ETC concert", quality: 40, sellIn: 0);
+
+            program.UpdateQuality(new List<Item> { item });
+
+            item.Quality.Should().Be(0);
+        }
+
         private Item CreateItem(string name = "Regular item", int quality = 20, int sellIn = 30)
         {
             return new Item { Name = name, Quality = quality, SellIn = sellIn };
