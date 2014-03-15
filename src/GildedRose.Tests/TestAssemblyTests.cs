@@ -112,6 +112,18 @@ namespace GildedRose.Tests
             itemSixDaysToSell.Quality.Should().Be(42);
         }
 
+        [Test]
+        public void BackstagePassesIncreasesQualityByThreeIfSellInIsBetween1And5()
+        {
+            var itemFiveDaysToSell = CreateItem(name: "Backstage passes to a TAFKAL80ETC concert", quality: 40, sellIn: 5);
+            var itemOneDayToSell = CreateItem(name: "Backstage passes to a TAFKAL80ETC concert", quality: 40, sellIn: 1);
+
+            program.UpdateQuality(new List<Item> { itemFiveDaysToSell, itemOneDayToSell });
+
+            itemFiveDaysToSell.Quality.Should().Be(43);
+            itemOneDayToSell.Quality.Should().Be(43);
+        }
+
         private Item CreateItem(string name = "Regular item", int quality = 20, int sellIn = 30)
         {
             return new Item { Name = name, Quality = quality, SellIn = sellIn };
