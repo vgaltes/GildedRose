@@ -82,6 +82,8 @@ namespace GildedRose.Console
                     {
                         item.Quality = item.Quality - 1;
                     }
+
+                    item.SellIn = item.SellIn - 1;
                 }
                 else if (IsBackStagePassItem(item))
                 {
@@ -104,6 +106,8 @@ namespace GildedRose.Console
                             }
                         }
                     }
+
+                    item.SellIn = item.SellIn - 1;
                 }
                 else if ( IsAgedBrieItem(item))
                 {
@@ -111,10 +115,7 @@ namespace GildedRose.Console
                     {
                         item.Quality = item.Quality + 1;
                     }
-                }
 
-                if (item.Name != "Sulfuras, Hand of Ragnaros")
-                {
                     item.SellIn = item.SellIn - 1;
                 }
 
