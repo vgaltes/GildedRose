@@ -108,6 +108,11 @@ namespace GildedRose.Console
                     }
 
                     item.SellIn = item.SellIn - 1;
+
+                    if (item.SellIn < 0)
+                    {
+                        item.Quality = item.Quality - item.Quality;
+                    }
                 }
                 else if ( IsAgedBrieItem(item))
                 {
@@ -141,10 +146,10 @@ namespace GildedRose.Console
                                 }
                             }
                         }
-                        else
-                        {
-                            item.Quality = item.Quality - item.Quality;
-                        }
+                        //else
+                        //{
+                        //    item.Quality = item.Quality - item.Quality;
+                        //}
                     }
                     //else
                     //{
