@@ -50,6 +50,16 @@ namespace GildedRose.Tests
             item.Quality.Should().Be(0);
         }
 
+        [Test]
+        public void AgedBrieIncreasesQualityByOneTheOlderItGets()
+        {
+            var item = CreateItem(name: "Aged Brie", quality: 20);
+
+            program.UpdateQuality(new List<Item> { item });
+
+            item.Quality.Should().Be(21);
+        }
+
         private Item CreateItem(string name = "Regular item", int quality = 20, int sellIn = 30)
         {
             return new Item { Name = name, Quality = quality, SellIn = sellIn };
