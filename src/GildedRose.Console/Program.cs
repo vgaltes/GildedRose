@@ -88,7 +88,7 @@ namespace GildedRose.Console
                         item.Quality = item.Quality - 1;
                     }
 
-                    item.SellIn = item.SellIn - 1;
+                    DecrementSellIn(item);
 
                     if (SellByDatePassed(item))
                     {
@@ -117,7 +117,7 @@ namespace GildedRose.Console
                         }
                     }
 
-                    item.SellIn = item.SellIn - 1;
+                    DecrementSellIn(item);
 
                     if (SellByDatePassed(item))
                     {
@@ -131,7 +131,7 @@ namespace GildedRose.Console
                         item.Quality = item.Quality + 1;
                     }
 
-                    item.SellIn = item.SellIn - 1;
+                    DecrementSellIn(item);
 
                     if (SellByDatePassed(item))
                     {
@@ -142,6 +142,11 @@ namespace GildedRose.Console
                     }
                 }
             }
+        }
+
+        private static void DecrementSellIn(Item item)
+        {
+            item.SellIn = item.SellIn - 1;
         }
 
     }
