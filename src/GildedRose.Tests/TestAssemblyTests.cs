@@ -83,11 +83,11 @@ namespace GildedRose.Tests
         [Test]
         public void LegendaryItemsNeverDecreasesQuality()
         {
-            var item = CreateItem(name: "Sulfuras, Hand of Ragnaros", quality: 50);
+            var item = CreateItem(name: "Sulfuras, Hand of Ragnaros", quality: 40);
 
             program.UpdateQuality(new List<Item> { item });
 
-            item.Quality.Should().Be(50);
+            item.Quality.Should().Be(40);
         }
 
         [Test]
