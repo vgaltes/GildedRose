@@ -61,6 +61,11 @@ namespace GildedRose.Console
             return item.Name == "Backstage passes to a TAFKAL80ETC concert";
         }
 
+        private bool IsAgedBrieItem(Item item)
+        {
+            return item.Name == "Aged Brie";
+        }
+
         public void UpdateQuality()
         {
             for (var i = 0; i < Items.Count; i++)
@@ -100,7 +105,7 @@ namespace GildedRose.Console
                         }
                     }
                 }
-                else
+                else if ( IsAgedBrieItem(item))
                 {
                     if (item.Quality < 50)
                     {
