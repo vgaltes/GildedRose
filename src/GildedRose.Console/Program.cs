@@ -46,13 +46,18 @@ namespace GildedRose.Console
                    item.Name != "Backstage passes to a TAFKAL80ETC concert";
         }
 
+        private bool HasQuality(Item item)
+        {
+            return item.Quality > 0;
+        }
+
         public void UpdateQuality()
         {
             for (var i = 0; i < Items.Count; i++)
             {
                 if (IsRegularItem(Items[i]))
                 {
-                    if (Items[i].Quality > 0)
+                    if (HasQuality(Items[i]))
                     {
                         if (Items[i].Name != "Sulfuras, Hand of Ragnaros")
                         {
