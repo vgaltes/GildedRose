@@ -99,20 +99,20 @@ namespace GildedRose.Console
                 {
                     if (IsQualityUnderTheLimit(item))
                     {
-                        item.Quality = item.Quality + 1;
+                        IncrementQuality(item);
 
                         if (item.SellIn < 11)
                         {
                             if (IsQualityUnderTheLimit(item))
                             {
-                                item.Quality = item.Quality + 1;
+                                IncrementQuality(item);
                             }
                         }
                         if (item.SellIn < 6)
                         {
                             if (IsQualityUnderTheLimit(item))
                             {
-                                item.Quality = item.Quality + 1;
+                                IncrementQuality(item);
                             }
                         }
                     }
@@ -130,18 +130,23 @@ namespace GildedRose.Console
                     
                     if (IsQualityUnderTheLimit(item))
                     {
-                        item.Quality = item.Quality + 1;
+                        IncrementQuality(item);
 
                         if (SellByDatePassed(item))
                         {
                             if (IsQualityUnderTheLimit(item))
                             {
-                                item.Quality = item.Quality + 1;
+                                IncrementQuality(item);
                             }
                         }
                     }
                 }
             }
+        }
+
+        private static void IncrementQuality(Item item)
+        {
+            item.Quality = item.Quality + 1;
         }
 
         private bool IsQualityUnderTheLimit(Item item)
