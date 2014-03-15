@@ -8,11 +8,12 @@ namespace GildedRose.Tests
     [TestFixture]
     public class TestAssemblyTests
     {
+        Program program = new Program();
+
         [Test]
         public void AtTheEndOfEachDayTheSystemLowersSellInByOne()
         {
             var item = CreateItem(sellIn: 20);
-            var program = new Program();
 
             program.UpdateQuality(new List<Item> { item });
 
@@ -23,7 +24,6 @@ namespace GildedRose.Tests
         public void AtTheEndOfEachDayTheSystemLowersQualityInByOne()
         {
             var item = CreateItem(quality: 20);
-            var program = new Program();
 
             program.UpdateQuality(new List<Item> { item });
 
@@ -34,7 +34,6 @@ namespace GildedRose.Tests
         public void OnceTheSellByDateHasPassedQualityDegradesTwiceAsFast()
         {
             var item = CreateItem(sellIn: 0, quality: 20);
-            var program = new Program();
 
             program.UpdateQuality(new List<Item> { item });
 
