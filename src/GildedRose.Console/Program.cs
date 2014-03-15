@@ -19,7 +19,7 @@ namespace GildedRose.Console
                                               new Item {Name = "Sulfuras, Hand of Ragnaros", SellIn = 0, Quality = 80},
                                               new Item
                                                   {
-                                                      Name = "Backstage passes to a TAFKAL80ETC concert",
+                                                      Name = "  ",
                                                       SellIn = 15,
                                                       Quality = 20
                                                   },

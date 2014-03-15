@@ -91,13 +91,23 @@ namespace GildedRose.Tests
         }
 
         [Test]
-        public void BackstagePassesDecreaesQualityByOneIfSellInIsGreaterThan10()
+        public void BackstagePassesIncreasesQualityByOneIfSellInIsGreaterThan10()
         {
-            var item = CreateItem(name: "Backstage Passes", quality: 50, sellIn:11);
+            var item = CreateItem(name: "Backstage passes to a TAFKAL80ETC concert", quality: 40, sellIn: 11);
 
             program.UpdateQuality(new List<Item> { item });
 
-            item.Quality.Should().Be(49);
+            item.Quality.Should().Be(41);
+        }
+
+        [Test]
+        public void BackstagePassesIncreasesQualityByTwoIfSellInIsBetween6And10()
+        {
+            var item = CreateItem(name: "Backstage passes to a TAFKAL80ETC concert", quality: 40, sellIn: 10);
+
+            program.UpdateQuality(new List<Item> { item });
+
+            item.Quality.Should().Be(42);
         }
 
         private Item CreateItem(string name = "Regular item", int quality = 20, int sellIn = 30)
