@@ -103,11 +103,13 @@ namespace GildedRose.Tests
         [Test]
         public void BackstagePassesIncreasesQualityByTwoIfSellInIsBetween6And10()
         {
-            var item = CreateItem(name: "Backstage passes to a TAFKAL80ETC concert", quality: 40, sellIn: 10);
+            var itemTenDaysToSell = CreateItem(name: "Backstage passes to a TAFKAL80ETC concert", quality: 40, sellIn: 10);
+            var itemSixDaysToSell = CreateItem(name: "Backstage passes to a TAFKAL80ETC concert", quality: 40, sellIn: 6);
 
-            program.UpdateQuality(new List<Item> { item });
+            program.UpdateQuality(new List<Item> { itemTenDaysToSell, itemSixDaysToSell });
 
-            item.Quality.Should().Be(42);
+            itemTenDaysToSell.Quality.Should().Be(42);
+            itemSixDaysToSell.Quality.Should().Be(42);
         }
 
         private Item CreateItem(string name = "Regular item", int quality = 20, int sellIn = 30)
