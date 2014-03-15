@@ -51,13 +51,22 @@ namespace GildedRose.Console
             return item.Quality > 0;
         }
 
+        private bool IsLegendaryItem(Item item)
+        {
+            return item.Name == "Sulfuras, Hand of Ragnaros";
+        }
+
         public void UpdateQuality()
         {
             for (var i = 0; i < Items.Count; i++)
             {
                 Item item = Items[i];
 
-                if (IsRegularItem(item))
+                if ( IsLegendaryItem(item))
+                {
+
+                }
+                else if (IsRegularItem(item))
                 {
                     if (HasQuality(item))
                     {
