@@ -53,11 +53,6 @@ namespace GildedRose.Console
             return item.Quality > 0;
         }
 
-        private bool IsAgedBrieItem(Item item)
-        {
-            return item.Name == "Aged Brie";
-        }
-
         private bool SellByDatePassed(Item item)
         {
             return item.SellIn < 0;
@@ -67,6 +62,7 @@ namespace GildedRose.Console
         {
             var legendaryItemStrategy = new LegendaryItemStrategy();
             var backStagePassItemStrategy = new BackStagePassItemStrategy();
+            var agedBrieItemStrategy = new AgedBrieItemStrategy();
 
             for (var i = 0; i < Items.Count; i++)
             {
@@ -79,22 +75,9 @@ namespace GildedRose.Console
                 {
                     backStagePassItemStrategy.UpdateQuality(item);                    
                 }
-                else if ( IsAgedBrieItem(item))
+                else if ( agedBrieItemStrategy.CanHandle(item))
                 {
-                    DecrementSellIn(item);
-                    
-                    if (IsQualityUnderTheLimit(item))
-                    {
-                        IncrementQuality(item);
-
-                        if (SellByDatePassed(item))
-                        {
-                            if (IsQualityUnderTheLimit(item))
-                            {
-                                IncrementQuality(item);
-                            }
-                        }
-                    }
+                    agedBrieItemStrategy.UpdateQuality(item);
                 }
                 else if (IsRegularItem(item))
                 {
