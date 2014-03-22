@@ -69,26 +69,7 @@ namespace GildedRose.Tests
 
             item.Quality.Should().Be(50);
         }
-
-        [Test]
-        public void LegendaryItemsNeverDecreasesSellIn()
-        {
-            var item = CreateItem(name: "Sulfuras, Hand of Ragnaros", sellIn: 50);
-
-            program.UpdateQuality(new List<Item> { item });
-
-            item.SellIn.Should().Be(50);
-        }
-
-        [Test]
-        public void LegendaryItemsNeverDecreasesQuality()
-        {
-            var item = CreateItem(name: "Sulfuras, Hand of Ragnaros", quality: 40);
-
-            program.UpdateQuality(new List<Item> { item });
-
-            item.Quality.Should().Be(40);
-        }
+               
 
         [Test]
         public void BackstagePassesIncreasesQualityByOneIfSellInIsGreaterThan10()
