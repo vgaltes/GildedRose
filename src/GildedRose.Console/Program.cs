@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using GildedRose.Console.ItemsStrategies;
 
 namespace GildedRose.Console
 {
@@ -52,11 +53,6 @@ namespace GildedRose.Console
             return item.Quality > 0;
         }
 
-        private bool IsLegendaryItem(Item item)
-        {
-            return item.Name == "Sulfuras, Hand of Ragnaros";
-        }
-
         private bool IsBackStagePassItem(Item item)
         {
             return item.Name == "Backstage passes to a TAFKAL80ETC concert";
@@ -74,26 +70,13 @@ namespace GildedRose.Console
 
         public void UpdateQuality()
         {
+            var legendaryItemStrategy = new LegendaryItemStrategy();
+
             for (var i = 0; i < Items.Count; i++)
             {
                 Item item = Items[i];
 
-                
-                if (IsRegularItem(item))
-                {
-                    if (HasQuality(item))
-                    {
-                        DecrementQuality(item);
-                    }
-
-                    DecrementSellIn(item);
-
-                    if (SellByDatePassed(item))
-                    {
-                        DecrementQuality(item);
-                    }
-                }
-                else if (IsLegendaryItem(item))
+                if (legendaryItemStrategy.CanHandle(item))
                 {
 
                 }
@@ -141,6 +124,20 @@ namespace GildedRose.Console
                                 IncrementQuality(item);
                             }
                         }
+                    }
+                }
+                else if (IsRegularItem(item))
+                {
+                    if (HasQuality(item))
+                    {
+                        DecrementQuality(item);
+                    }
+
+                    DecrementSellIn(item);
+
+                    if (SellByDatePassed(item))
+                    {
+                        DecrementQuality(item);
                     }
                 }
             }
