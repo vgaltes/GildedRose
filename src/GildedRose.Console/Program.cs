@@ -53,11 +53,6 @@ namespace GildedRose.Console
             return item.Quality > 0;
         }
 
-        private bool IsBackStagePassItem(Item item)
-        {
-            return item.Name == "Backstage passes to a TAFKAL80ETC concert";
-        }
-
         private bool IsAgedBrieItem(Item item)
         {
             return item.Name == "Aged Brie";
@@ -71,6 +66,7 @@ namespace GildedRose.Console
         public void UpdateQuality()
         {
             var legendaryItemStrategy = new LegendaryItemStrategy();
+            var backStagePassItemStrategy = new BackStagePassItemStrategy();
 
             for (var i = 0; i < Items.Count; i++)
             {
@@ -80,7 +76,7 @@ namespace GildedRose.Console
                 {
 
                 }
-                else if (IsBackStagePassItem(item))
+                else if (backStagePassItemStrategy.CanHandle(item))
                 {
                     if (IsQualityUnderTheLimit(item))
                     {

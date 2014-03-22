@@ -17,7 +17,7 @@ namespace GildedRose.Tests.ItemsStrategies
         [Test]
         public void LegendaryItemCanHandleSulfurasItems()
         {
-            var item = CreateItem(name: "Sulfuras, Hand of Ragnaros");
+            var item = CreateItem();
             var canHandle = legendaryItemStrategy.CanHandle(item);
 
             canHandle.Should().BeTrue();
@@ -26,7 +26,7 @@ namespace GildedRose.Tests.ItemsStrategies
         [Test]
         public void LegendaryItemsNeverDecreasesSellIn()
         {
-            var item = CreateItem(name: "Sulfuras, Hand of Ragnaros", sellIn: 40);
+            var item = CreateItem(sellIn: 40);
             legendaryItemStrategy.UpdateQuality(item);
 
             item.SellIn.Should().Be(40);
@@ -35,15 +35,35 @@ namespace GildedRose.Tests.ItemsStrategies
         [Test]
         public void LegendaryItemsNeverDecreasesQuality()
         {
-            var item = CreateItem(name: "Sulfuras, Hand of Ragnaros", quality: 40);
+            var item = CreateItem(quality: 40);
 
             legendaryItemStrategy.UpdateQuality(item);
 
             item.Quality.Should().Be(40);
         }
-        private Item CreateItem(string name = "Regular item", int quality = 20, int sellIn = 30)
+
+        [Test]
+        public void TheQualityOfAnItemIsNeverMoreThan50()
         {
-            return new Item { Name = name, Quality = quality, SellIn = sellIn };
+            var item = CreateItem(quality: 50);
+
+            legendaryItemStrategy.UpdateQuality(item);
+
+            item.Quality.Should().Be(50);
+        }
+
+        [Test]
+        public void TheQualityOfAnItemIsNeverNegative()
+        {
+            var item = CreateItem(quality: 0);
+
+            legendaryItemStrategy.UpdateQuality(item);
+
+            item.Quality.Should().Be(0);
+        }
+        private Item CreateItem(int quality = 20, int sellIn = 30)
+        {
+            return new Item { Name = "Sulfuras, Hand of Ragnaros", Quality = quality, SellIn = sellIn };
         }
     }
 }
