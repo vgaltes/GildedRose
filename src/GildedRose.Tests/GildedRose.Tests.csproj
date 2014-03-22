@@ -50,6 +50,7 @@
     <Compile Include="ItemsStrategies\AgedBrieItemStrategyTests.cs" />
     <Compile Include="ItemsStrategies\BackStagePassItemStrategyTests.cs" />
     <Compile Include="ItemsStrategies\LegendaryItemStrategyTests.cs" />
+    <Compile Include="ItemsStrategies\RegularItemStrategyTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TestAssemblyTests.cs" />
   </ItemGroup>

@@ -11,46 +11,6 @@ namespace GildedRose.Tests
         Program program = new Program();
 
         [Test]
-        public void AtTheEndOfEachDayTheSystemLowersSellInByOne()
-        {
-            var item = CreateItem(sellIn: 20);
-
-            program.UpdateQuality(new List<Item> { item });
-
-            item.SellIn.Should().Be(19);
-        }
-
-        [Test]
-        public void AtTheEndOfEachDayTheSystemLowersQualityInByOne()
-        {
-            var item = CreateItem(quality: 20);
-
-            program.UpdateQuality(new List<Item> { item });
-
-            item.Quality.Should().Be(19);
-        }
-
-        [Test]
-        public void OnceTheSellByDateHasPassedQualityDegradesTwiceAsFast()
-        {
-            var item = CreateItem(sellIn: 0, quality: 20);
-
-            program.UpdateQuality(new List<Item> { item });
-
-            item.Quality.Should().Be(18);        
-        }
-
-        [Test]
-        public void TheQualityOfAnItemIsNeverNegative()
-        {
-            var item = CreateItem(quality: 0);
-
-            program.UpdateQuality(new List<Item> { item });
-
-            item.Quality.Should().Be(0);
-        }
-
-        [Test]
         public void AgedBrieIncreasesQualityByOneTheOlderItGets()
         {
             var item = CreateItem(name: "Aged Brie", quality: 20);

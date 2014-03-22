@@ -1,13 +1,13 @@
 ﻿namespace GildedRose.Console.ItemsStrategies
 {
-    internal class RegularItemStrategy
+    public class RegularItemStrategy
     {
-        internal bool CanHandle(Item item)
+        public bool CanHandle(Item item)
         {
             return true;
         }
 
-        internal void UpdateQuality(Item item)
+        public void UpdateQuality(Item item)
         {
             if (HasQuality(item))
             {
