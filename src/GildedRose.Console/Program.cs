@@ -6,6 +6,9 @@ namespace GildedRose.Console
     public class Program
     {
         IList<Item> Items;
+
+        IList<GildedRoseItemStrategy> GildedRoseItemStrategies;
+
         static void Main(string[] args)
         {
             System.Console.WriteLine("OMGHAI!");
@@ -25,53 +28,45 @@ namespace GildedRose.Console
                                                       Quality = 20
                                                   },
                                               new Item {Name = "Conjured Mana Cake", SellIn = 3, Quality = 6}
-                                          }
-
+                                          },
+                                GildedRoseItemStrategies = new List<GildedRoseItemStrategy>
+                                {
+                                    new LegendaryItemStrategy(),
+                                    new BackStagePassItemStrategy(),
+                                    new AgedBrieItemStrategy(),
+                                    new RegularItemStrategy()
+                                }
                           };
 
             app.UpdateQuality();
 
             System.Console.ReadKey();
-
         }
 
-        public void UpdateQuality(List<Item> items)
+        public void UpdateQuality(List<Item> items, List<GildedRoseItemStrategy> strategies)
         {
             this.Items = items;
+            this.GildedRoseItemStrategies = strategies;
             UpdateQuality();
         }
 
         public void UpdateQuality()
         {
-            var legendaryItemStrategy = new LegendaryItemStrategy();
-            var backStagePassItemStrategy = new BackStagePassItemStrategy();
-            var agedBrieItemStrategy = new AgedBrieItemStrategy();
-            var regularItemStrategy = new RegularItemStrategy();
-
             for (var i = 0; i < Items.Count; i++)
             {
                 Item item = Items[i];
 
-                if (legendaryItemStrategy.CanHandle(item))
-                {
-                }
-                else if (backStagePassItemStrategy.CanHandle(item))
-                {
-                    backStagePassItemStrategy.UpdateQuality(item);                    
-                }
-                else if ( agedBrieItemStrategy.CanHandle(item))
-                {
-                    agedBrieItemStrategy.UpdateQuality(item);
-                }
-                else if (regularItemStrategy.CanHandle(item))
-                {
-                    regularItemStrategy.UpdateQuality(item);
+                bool handled = false;
+                foreach ( var gildedRoseItemStrategy in GildedRoseItemStrategies)
+                {   
+                    if (!handled && gildedRoseItemStrategy.CanHandle(item))
+                    {
+                        gildedRoseItemStrategy.UpdateQuality(item);
+                        handled = true;
+                    }
                 }
             }
         }
-
-        
-
     }
 
     public class Item

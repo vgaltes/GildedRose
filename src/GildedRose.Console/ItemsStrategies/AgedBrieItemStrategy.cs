@@ -1,6 +1,6 @@
 ﻿namespace GildedRose.Console.ItemsStrategies
 {
-    public class AgedBrieItemStrategy
+    public class AgedBrieItemStrategy : GildedRoseItemStrategy
     {
         public bool CanHandle(Item item)
         {

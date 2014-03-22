@@ -33,6 +33,52 @@ namespace GildedRose.Tests.ItemsStrategies
             item.Quality.Should().Be(50);
         }
 
+        [Test]
+        public void BackstagePassesIncreasesQualityByOneIfSellInIsGreaterThan10()
+        {
+            var item = CreateItem(quality: 40, sellIn: 11);
+
+            backstagePassItemStrategy.UpdateQuality(item);
+
+            item.Quality.Should().Be(41);
+        }
+
+        [Test]
+        public void BackstagePassesIncreasesQualityByTwoIfSellInIsBetween6And10()
+        {
+            var itemTenDaysToSell = CreateItem(quality: 40, sellIn: 10);
+            var itemSixDaysToSell = CreateItem(quality: 40, sellIn: 6);
+
+            backstagePassItemStrategy.UpdateQuality(itemTenDaysToSell);
+            backstagePassItemStrategy.UpdateQuality(itemSixDaysToSell);
+
+            itemTenDaysToSell.Quality.Should().Be(42);
+            itemSixDaysToSell.Quality.Should().Be(42);
+        }
+
+        [Test]
+        public void BackstagePassesIncreasesQualityByThreeIfSellInIsBetween1And5()
+        {
+            var itemFiveDaysToSell = CreateItem(quality: 40, sellIn: 5);
+            var itemOneDayToSell = CreateItem(quality: 40, sellIn: 1);
+
+            backstagePassItemStrategy.UpdateQuality(itemFiveDaysToSell);
+            backstagePassItemStrategy.UpdateQuality(itemOneDayToSell);
+
+            itemFiveDaysToSell.Quality.Should().Be(43);
+            itemOneDayToSell.Quality.Should().Be(43);
+        }
+
+        [Test]
+        public void BackstagePassesDropsQualityToZeroAfterTheConcert()
+        {
+            var item = CreateItem(quality: 40, sellIn: 0);
+
+            backstagePassItemStrategy.UpdateQuality(item);
+
+            item.Quality.Should().Be(0);
+        }
+
         
         private Item CreateItem(int quality = 20, int sellIn = 30)
         {

@@ -1,6 +1,6 @@
 ﻿namespace GildedRose.Console.ItemsStrategies
 {
-    public class LegendaryItemStrategy
+    public class LegendaryItemStrategy : GildedRoseItemStrategy
     {
         public bool CanHandle(Item item)
         {

@@ -2,77 +2,52 @@ using System.Collections.Generic;
 using GildedRose.Console;
 using NUnit.Framework;
 using FluentAssertions;
+using GildedRose.Console.ItemsStrategies;
 
 namespace GildedRose.Tests
 {
     [TestFixture]
     public class TestAssemblyTests
     {
+        List<Item> items = new List<Item>
+                                          {
+                                              new Item {Name = "+5 Dexterity Vest", SellIn = 10, Quality = 20},
+                                              new Item {Name = "Aged Brie", SellIn = 2, Quality = 0},
+                                              new Item {Name = "Elixir of the Mongoose", SellIn = 5, Quality = 7},
+                                              new Item {Name = "Sulfuras, Hand of Ragnaros", SellIn = 0, Quality = 80},
+                                              new Item
+                                                  {
+                                                      Name = "  ",
+                                                      SellIn = 15,
+                                                      Quality = 20
+                                                  },
+                                              new Item {Name = "Conjured Mana Cake", SellIn = 3, Quality = 6}
+                                          };
+        List<GildedRoseItemStrategy> strategies = new List<GildedRoseItemStrategy>
+                                {
+                                    new LegendaryItemStrategy(),
+                                    new BackStagePassItemStrategy(),
+                                    new AgedBrieItemStrategy(),
+                                    new RegularItemStrategy()
+                                };
         Program program = new Program();
 
         [Test]
-        public void AgedBrieIncreasesQualityByOneTheOlderItGets()
+        public void GoldenMasterTest()
         {
-            var item = CreateItem(name: "Aged Brie", quality: 20);
+            program.UpdateQuality(items, strategies);
 
-            program.UpdateQuality(new List<Item> { item });
+            items[0].Quality.Should().Be(19);
+            items[0].SellIn.Should().Be(9);
 
-            item.Quality.Should().Be(21);
-        }
+            items[1].Quality.Should().Be(1);
+            items[1].SellIn.Should().Be(1);
 
-        [Test]
-        public void TheQualityOfAnItemIsNeverMoreThan50()
-        {
-            var item = CreateItem(name: "Aged Brie", quality: 50);
+            items[2].Quality.Should().Be(6);
+            items[2].SellIn.Should().Be(4);
 
-            program.UpdateQuality(new List<Item> { item });
-
-            item.Quality.Should().Be(50);
-        }
-               
-
-        [Test]
-        public void BackstagePassesIncreasesQualityByOneIfSellInIsGreaterThan10()
-        {
-            var item = CreateItem(name: "Backstage passes to a TAFKAL80ETC concert", quality: 40, sellIn: 11);
-
-            program.UpdateQuality(new List<Item> { item });
-
-            item.Quality.Should().Be(41);
-        }
-
-        [Test]
-        public void BackstagePassesIncreasesQualityByTwoIfSellInIsBetween6And10()
-        {
-            var itemTenDaysToSell = CreateItem(name: "Backstage passes to a TAFKAL80ETC concert", quality: 40, sellIn: 10);
-            var itemSixDaysToSell = CreateItem(name: "Backstage passes to a TAFKAL80ETC concert", quality: 40, sellIn: 6);
-
-            program.UpdateQuality(new List<Item> { itemTenDaysToSell, itemSixDaysToSell });
-
-            itemTenDaysToSell.Quality.Should().Be(42);
-            itemSixDaysToSell.Quality.Should().Be(42);
-        }
-
-        [Test]
-        public void BackstagePassesIncreasesQualityByThreeIfSellInIsBetween1And5()
-        {
-            var itemFiveDaysToSell = CreateItem(name: "Backstage passes to a TAFKAL80ETC concert", quality: 40, sellIn: 5);
-            var itemOneDayToSell = CreateItem(name: "Backstage passes to a TAFKAL80ETC concert", quality: 40, sellIn: 1);
-
-            program.UpdateQuality(new List<Item> { itemFiveDaysToSell, itemOneDayToSell });
-
-            itemFiveDaysToSell.Quality.Should().Be(43);
-            itemOneDayToSell.Quality.Should().Be(43);
-        }
-
-        [Test]
-        public void BackstagePassesDropsQualityToZeroAfterTheConcert()
-        {
-            var item = CreateItem(name: "Backstage passes to a TAFKAL80ETC concert", quality: 40, sellIn: 0);
-
-            program.UpdateQuality(new List<Item> { item });
-
-            item.Quality.Should().Be(0);
+            items[3].Quality.Should().Be(80);
+            items[3].SellIn.Should().Be(0);
         }
 
         private Item CreateItem(string name = "Regular item", int quality = 20, int sellIn = 30)

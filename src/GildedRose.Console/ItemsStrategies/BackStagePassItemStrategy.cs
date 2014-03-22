@@ -5,7 +5,7 @@ using System.Text;
 
 namespace GildedRose.Console.ItemsStrategies
 {
-    public class BackStagePassItemStrategy
+    public class BackStagePassItemStrategy : GildedRoseItemStrategy
     {
         public bool CanHandle(Item item)
         {
