@@ -1,13 +1,13 @@
 ﻿namespace GildedRose.Console.ItemsStrategies
 {
-    internal class AgedBrieItemStrategy
+    public class AgedBrieItemStrategy
     {
-        internal bool CanHandle(Item item)
+        public bool CanHandle(Item item)
         {
             return item.Name == "Aged Brie";
         }
 
-        internal void UpdateQuality(Item item)
+        public void UpdateQuality(Item item)
         {
             DecrementSellIn(item);
 
