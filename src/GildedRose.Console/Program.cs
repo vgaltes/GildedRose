@@ -74,36 +74,10 @@ namespace GildedRose.Console
 
                 if (legendaryItemStrategy.CanHandle(item))
                 {
-
                 }
                 else if (backStagePassItemStrategy.CanHandle(item))
                 {
-                    if (IsQualityUnderTheLimit(item))
-                    {
-                        IncrementQuality(item);
-
-                        if (item.SellIn < 11)
-                        {
-                            if (IsQualityUnderTheLimit(item))
-                            {
-                                IncrementQuality(item);
-                            }
-                        }
-                        if (item.SellIn < 6)
-                        {
-                            if (IsQualityUnderTheLimit(item))
-                            {
-                                IncrementQuality(item);
-                            }
-                        }
-                    }
-
-                    DecrementSellIn(item);
-
-                    if (SellByDatePassed(item))
-                    {
-                        item.Quality = 0;
-                    }
+                    backStagePassItemStrategy.UpdateQuality(item);                    
                 }
                 else if ( IsAgedBrieItem(item))
                 {
