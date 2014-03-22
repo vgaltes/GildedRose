@@ -1,7 +1,12 @@
-﻿namespace GildedRose.Console.ItemsStrategies
+﻿using GildedRose.Console;
+
+namespace GildedRose.Console.ItemsStrategies
 {
     public class RegularItemStrategy : GildedRoseItemStrategy
     {
+        private const int DEFAULT_QUALITY_DROP = 1;
+        private const int DEFAULT_SELLIN_DROP = 1;
+
         public bool CanHandle(Item item)
         {
             return true;
@@ -9,37 +14,17 @@
 
         public void UpdateQuality(Item item)
         {
-            if (HasQuality(item))
+            if (item.HasQuality())
             {
-                DecrementQuality(item);
+                item.DecrementQualityBy(DEFAULT_QUALITY_DROP);
             }
 
-            DecrementSellIn(item);
+            item.DecrementSellInBy(DEFAULT_SELLIN_DROP);
 
-            if (SellByDatePassed(item))
+            if (item.HasSellByDatePassed())
             {
-                DecrementQuality(item);
+                item.DecrementQualityBy(DEFAULT_QUALITY_DROP);
             }
-        }
-
-        private static void DecrementQuality(Item item)
-        {
-            item.Quality = item.Quality - 1;
-        }
-        
-        private static void DecrementSellIn(Item item)
-        {
-            item.SellIn = item.SellIn - 1;
-        }
-
-        private bool HasQuality(Item item)
-        {
-            return item.Quality > 0;
-        }
-
-        private bool SellByDatePassed(Item item)
-        {
-            return item.SellIn < 0;
         }
     }
 }

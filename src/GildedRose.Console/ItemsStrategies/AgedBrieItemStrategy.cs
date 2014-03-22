@@ -2,47 +2,32 @@
 {
     public class AgedBrieItemStrategy : GildedRoseItemStrategy
     {
+        private const int DEFAULT_SELLIN_DROP = 1;
+        private const int QUALITY_LIMIT = 50;
+        private const int DEFAULT_QUALITY_RAISE = 1;
+        private const string AGED_BRIE_NAME = "Aged Brie";
+
         public bool CanHandle(Item item)
         {
-            return item.Name == "Aged Brie";
+            return item.Name == AGED_BRIE_NAME;
         }
 
         public void UpdateQuality(Item item)
         {
-            DecrementSellIn(item);
+            item.DecrementSellInBy(DEFAULT_SELLIN_DROP);
 
-            if (IsQualityUnderTheLimit(item))
+            if (item.HasQualityUnder(QUALITY_LIMIT))
             {
-                IncrementQuality(item);
+                item.IncrementQualityBy(DEFAULT_QUALITY_RAISE);
 
-                if (SellByDatePassed(item))
+                if (item.HasSellByDatePassed())
                 {
-                    if (IsQualityUnderTheLimit(item))
+                    if (item.HasQualityUnder(QUALITY_LIMIT))
                     {
-                        IncrementQuality(item);
+                        item.IncrementQualityBy(DEFAULT_QUALITY_RAISE);
                     }
                 }
             }
-        }
-
-        private static void IncrementQuality(Item item)
-        {
-            item.Quality = item.Quality + 1;
-        }
-
-        private bool IsQualityUnderTheLimit(Item item)
-        {
-            return item.Quality < 50;
-        }
-
-        private static void DecrementSellIn(Item item)
-        {
-            item.SellIn = item.SellIn - 1;
-        }
-
-        private bool SellByDatePassed(Item item)
-        {
-            return item.SellIn < 0;
         }
     }
 }

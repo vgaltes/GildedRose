@@ -40,6 +40,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Item.cs" />
+    <Compile Include="ItemExtensionMethods.cs" />
     <Compile Include="ItemsStrategies\AgedBrieItemStrategy.cs" />
     <Compile Include="ItemsStrategies\BackStagePassItemStrategy.cs" />
     <Compile Include="ItemsStrategies\GildedRoseItemStrategy.cs" />
