@@ -41,28 +41,12 @@ namespace GildedRose.Console
             UpdateQuality();
         }
 
-        private bool IsRegularItem(Item item)
-        {
-            return item.Name != "Aged Brie" &&
-                   item.Name != "Backstage passes to a TAFKAL80ETC concert" &&
-                   item.Name != "Sulfuras, Hand of Ragnaros";
-        }
-
-        private bool HasQuality(Item item)
-        {
-            return item.Quality > 0;
-        }
-
-        private bool SellByDatePassed(Item item)
-        {
-            return item.SellIn < 0;
-        }
-
         public void UpdateQuality()
         {
             var legendaryItemStrategy = new LegendaryItemStrategy();
             var backStagePassItemStrategy = new BackStagePassItemStrategy();
             var agedBrieItemStrategy = new AgedBrieItemStrategy();
+            var regularItemStrategy = new RegularItemStrategy();
 
             for (var i = 0; i < Items.Count; i++)
             {
@@ -79,42 +63,14 @@ namespace GildedRose.Console
                 {
                     agedBrieItemStrategy.UpdateQuality(item);
                 }
-                else if (IsRegularItem(item))
+                else if (regularItemStrategy.CanHandle(item))
                 {
-                    if (HasQuality(item))
-                    {
-                        DecrementQuality(item);
-                    }
-
-                    DecrementSellIn(item);
-
-                    if (SellByDatePassed(item))
-                    {
-                        DecrementQuality(item);
-                    }
+                    regularItemStrategy.UpdateQuality(item);
                 }
             }
         }
 
-        private static void DecrementQuality(Item item)
-        {
-            item.Quality = item.Quality - 1;
-        }
-
-        private static void IncrementQuality(Item item)
-        {
-            item.Quality = item.Quality + 1;
-        }
-
-        private bool IsQualityUnderTheLimit(Item item)
-        {
-            return item.Quality < 50;
-        }
-
-        private static void DecrementSellIn(Item item)
-        {
-            item.SellIn = item.SellIn - 1;
-        }
+        
 
     }
 

@@ -42,6 +42,7 @@
     <Compile Include="ItemsStrategies\AgedBrieItemStrategy.cs" />
     <Compile Include="ItemsStrategies\BackStagePassItemStrategy.cs" />
     <Compile Include="ItemsStrategies\LegendaryItemStrategy.cs" />
+    <Compile Include="ItemsStrategies\RegularItemStrategy.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
