@@ -5,9 +5,9 @@ namespace GildedRose.Console
 {
     public class Program
     {
-        IList<Item> Items;
+        IList<Item> items;
 
-        IList<GildedRoseItemStrategy> GildedRoseItemStrategies;
+        StrategyFactory strategyFactory = new StrategyFactory();
 
         static void Main(string[] args)
         {
@@ -15,7 +15,7 @@ namespace GildedRose.Console
 
             var app = new Program()
                           {
-                              Items = new List<Item>
+                              items = new List<Item>
                                           {
                                               new Item {Name = "+5 Dexterity Vest", SellIn = 10, Quality = 20},
                                               new Item {Name = "Aged Brie", SellIn = 2, Quality = 0},
@@ -28,14 +28,7 @@ namespace GildedRose.Console
                                                       Quality = 20
                                                   },
                                               new Item {Name = "Conjured Mana Cake", SellIn = 3, Quality = 6}
-                                          },
-                                GildedRoseItemStrategies = new List<GildedRoseItemStrategy>
-                                {
-                                    new LegendaryItemStrategy(),
-                                    new BackStagePassItemStrategy(),
-                                    new AgedBrieItemStrategy(),
-                                    new RegularItemStrategy()
-                                }
+                                          }
                           };
 
             app.UpdateQuality();
@@ -43,28 +36,18 @@ namespace GildedRose.Console
             System.Console.ReadKey();
         }
 
-        public void UpdateQuality(List<Item> items, List<GildedRoseItemStrategy> strategies)
+        public void UpdateQuality(List<Item> items)
         {
-            this.Items = items;
-            this.GildedRoseItemStrategies = strategies;
+            this.items = items;
             UpdateQuality();
         }
 
         public void UpdateQuality()
         {
-            for (var i = 0; i < Items.Count; i++)
+            foreach ( var item in items)
             {
-                Item item = Items[i];
-
-                bool handled = false;
-                foreach ( var gildedRoseItemStrategy in GildedRoseItemStrategies)
-                {   
-                    if (!handled && gildedRoseItemStrategy.CanHandle(item))
-                    {
-                        gildedRoseItemStrategy.UpdateQuality(item);
-                        handled = true;
-                    }
-                }
+                var strategy = strategyFactory.GetStrategyFor(item);
+                strategy.UpdateQuality(item);
             }
         }
     }

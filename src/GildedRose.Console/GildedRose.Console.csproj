@@ -45,6 +45,7 @@
     <Compile Include="ItemsStrategies\GildedRoseItemStrategy.cs" />
     <Compile Include="ItemsStrategies\LegendaryItemStrategy.cs" />
     <Compile Include="ItemsStrategies\RegularItemStrategy.cs" />
+    <Compile Include="ItemsStrategies\StrategyFactory.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

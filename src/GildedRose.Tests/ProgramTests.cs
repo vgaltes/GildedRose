@@ -23,19 +23,12 @@ namespace GildedRose.Tests
                                                   },
                                               new Item {Name = "Conjured Mana Cake", SellIn = 3, Quality = 6}
                                           };
-        List<GildedRoseItemStrategy> strategies = new List<GildedRoseItemStrategy>
-                                {
-                                    new LegendaryItemStrategy(),
-                                    new BackStagePassItemStrategy(),
-                                    new AgedBrieItemStrategy(),
-                                    new RegularItemStrategy()
-                                };
         Program program = new Program();
 
         [Test]
         public void GoldenMasterTest()
         {
-            program.UpdateQuality(items, strategies);
+            program.UpdateQuality(items);
 
             items[0].Quality.Should().Be(19);
             items[0].SellIn.Should().Be(9);
